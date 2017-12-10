@@ -14,7 +14,8 @@ int main( int argc, char *argv[]){
 		printf("not enough arguments: 1 or more arguments required\n");
 	}
 	else{
-		if(!strcmp(argv[1], "-c") && argc == 3){ //create semaphore and set value
+		//create semaphore, file, and shared memory and set values
+		if(!strcmp(argv[1], "-c") && argc == 2){ 
 			//printf("%d\n", semdes);
 			int semdes;
 			if( semdes = semget(KEY, 1, IPC_EXCL | IPC_CREAT | 0644) != -1){
@@ -34,12 +35,15 @@ int main( int argc, char *argv[]){
 				printf("semaphore already exists\n");
 			}
 		}
-		else if(!strcmp(argv[1], "-v") && argc == 2){ //View the value of semaphore
+		//Remove the shared memory, the semaphore and the story.
+		//Display full contents of the story
+		else if(!strcmp(argv[1], "-v") && argc == 2){
 			int semdes = semget(KEY, 0, 0);
 			//printf("semdes: %d\n", semdes);
 			int val = semctl(semdes, 0, GETVAL);
 			printf("semaphore value: %d\n", val);
 		}
+		//Remove the shared memory, the semaphore and the story.
 		else if(!strcmp(argv[1], "-r") && argc == 2){ //Remove the semaphore
 			
 		}
